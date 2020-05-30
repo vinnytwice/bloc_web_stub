@@ -1,0 +1,50 @@
+name: firebaseblocwebstub
+description: A new Flutter application.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  sprintf: ^4.0.2
+  http: ^0.12.0+4
+  uuid: ^2.0.4
+  intl: ^0.16.0
+  firebase_core: ^0.4.0+8
+  google_sign_in: 4.4.4
+  ##  !!!! This works on web and iOS.
+  #  To make it work on Xcode 10 change AuthApp versions to 1.2.0 in Podfile.lock
+
+  #  - AppAuth (1.2.0):
+  #      - AppAuth/Core (= 1.2.0)
+  #      - AppAuth/ExternalUserAgent (= 1.2.0)
+  #      - AppAuth/Core (1.2.0)
+  #      - AppAuth/ExternalUserAgent (1.2.0)
+  firebase_auth: ^0.16.0
+  firebase: ^7.3.0
+
+  universal_html: ^1.2.2
+
+  geolocator: ^5.2.1
+  latlong: ^0.6.1
+  equatable: ^1.0.0
+  flutter_bloc: ^3.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - localization/
+    - assets/
+
