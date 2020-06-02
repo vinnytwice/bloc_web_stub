@@ -13,9 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong/latlong.dart';
 
 class BookingScreen extends StatefulWidget {
-  final FixitUser user;
-
-  const BookingScreen({Key key, this.user}) : super(key: key);
+  const BookingScreen({Key key}) : super(key: key);
   @override
   _BookingScreenState createState() => _BookingScreenState();
 }
@@ -130,7 +128,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         RaisedButton(
-                            child: Text('logout ${widget.user.name}'),
+                            child: Text('logout'), // ${widget.user.name}'),
                             onPressed: () {
                               print('logout pressed');
                               BlocProvider.of<AuthenticationBloc>(context)
@@ -138,14 +136,15 @@ class _BookingScreenState extends State<BookingScreen> {
                             }),
                         SizedBox(width: 100),
                         Text(
-                          widget.user.name,
+                          'user name',
+//                          widget.user.name,
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         SizedBox(
                           width: 50,
                         ),
                         // user logo
-                        Image(image: NetworkImage(widget.user.photoUrl))
+//                        Image(image: NetworkImage(widget.user.photoUrl))
                       ],
                     ),
                     Row(

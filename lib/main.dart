@@ -82,34 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(
-          userRepository: userRepository, //UserRepository(),
-        )..add(StartApp()); //..add(AppStarted());
-      },
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is Unauthenticated) {
-//            print('state is Unauthenticated');
-            return LoginScreen(userRepository: userRepository);
-          }
-          if (state is Authenticated) {
-            print('state is Authenticated ${state.user.toString()}');
-            return MultiBlocProvider(
-                providers: [
-                  BlocProvider<AuthenticationBloc>(
-                      create: (context) =>
-                          AuthenticationBloc(userRepository: userRepository)),
-                ],
-                child: MainScreen(
-                  user: state.user,
+    return MainScreen(
 //                  deviceLocale: deviceLocale,
-                ));
-          }
-          return SplashScreen();
-        },
-      ),
-    );
+        );
   }
 }

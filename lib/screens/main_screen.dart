@@ -3,11 +3,12 @@ import 'package:firebaseblocwebstub/authentication_bloc/app_user.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
-  final FixitUser user;
+//  final FixitUser user;
+  const MainScreen({Key key});
 
-  const MainScreen({Key key, @required this.user})
-      : assert(user != null),
-        super(key: key);
+//  const MainScreen({Key key, @required this.user})
+//      : assert(user != null),
+//        super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -20,8 +21,8 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     screens = [
       BookingScreen(
-        user: widget.user,
-      ),
+//        user: widget.user,
+          ),
     ];
   }
 
