@@ -86,15 +86,13 @@ class LocationRepository {
 //  }
   Future<Map<String, dynamic>> getLocation() async {
     try {
-      Map<String, dynamic> locationDetails;
       UserLocation location = UserLocation();
-      await location.getPosition().then((pos) {
-        print('getLocation() pos is ${pos.toString()}');
-        locationDetails = {
-          'userLocation': pos['position'],
-          'userLocationIso': pos['isoPosition'],
-        };
-      });
+      final pos = await location.getPosition();
+      print('getLocation() pos is ${pos.toString()}');
+      final locationDetails = {
+        'userLocation': pos['position'],
+        'userLocationIso': pos['isoPosition'],
+      };
       return locationDetails;
     } catch (error) {
       print(

@@ -9,22 +9,19 @@ class GeolocatorWeb implements UserLocation {
   Future<Map<String, dynamic>> getPosition() async {
     LatLng position = LatLng(0, 0);
     String isoPosition;
-    await getCurrentPosition(allowInterop((pos) {
+    final completer = Completer<Map<String, dynamic>>();
+    getCurrentPosition(allowInterop((pos) {
       try {
         position.longitude = pos.coords.longitude;
         position.latitude = pos.coords.latitude;
+        completer.complete({'position': position, 'isoPosition': isoPosition});
       } catch (error) {
+        completer.completeError(error);
         print('Error is : $error');
       }
-      return;
     }));
 
-    Map<String, dynamic> map = {
-      'position': position,
-      'isoPosition': isoPosition
-    };
-
-    return map;
+    return completer.future;
   }
 }
 
