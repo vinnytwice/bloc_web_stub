@@ -10,11 +10,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:ui' as ui;
 
+import 'simple_bloc_delegate.dart';
+
 // flutter run -d chrome --release --web-hostname localhost --web-port 5000
 // flutter run -d chrome --profile --web-hostname localhost --web-port 5000
 // flutter run  -d chrome --profile --track-widget-creation --web-hostname localhost --web-port 5000
 
-void main() => runApp(MyApp());
+void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.

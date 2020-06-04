@@ -11,7 +11,7 @@ abstract class LocationState {
 class UserLocation extends LocationState {
   final LatLng location;
 
-  const UserLocation(this.location);
+  const UserLocation([this.location]);
 
   @override
   List<Object> get props => [location];

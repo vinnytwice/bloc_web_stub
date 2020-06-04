@@ -41,79 +41,73 @@ class _BookingScreenState extends State<BookingScreen> {
           create: (context) => GeoBloc(),
         ),
       ],
-      child: BlocBuilder<LocationBloc, LocationState>(
-        builder: (context, state) => MultiBlocListener(
-          listeners: [
-            BlocListener<LocationBloc, LocationState>(
-              listener: (BuildContext context, LocationState state) {
-                if (state is UserLocation) {
-                  setState(() {
-                    userLocation = state.location;
-                    print(
-                        'Test 0 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
-                    // prints LocationBlocListener state.location is 0,0 ???
+      child: BlocListener<GeoBloc, GeoState>(
+        listener: (BuildContext context, GeoState state) {
+          if (state is CityUser) {
+            print('CityUser state');
+            setState(() {
+              cityUser = (state).city;
+              regionUser = (state).region;
+              countryUser = (state).country;
+            });
+          }
 
-                    //Test 1 : Assign state value to variable and use it to send events
-                    print('Test 1');
-                    print(
-                        'Test 1 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
-                    // GetCityUser gets called with state.location is 0,0 and fails..
-                    BlocProvider.of<GeoBloc>(context)
-                        .add(GetCityUser(userLocation));
+          if (state is CityDb) {
+            print('CityDb state');
+            setState(() {
+              cityDb = (state).city;
+              regionDb = (state).region;
+              countryDb = (state).country;
+            });
+          }
+        },
+        child: BlocConsumer<LocationBloc, LocationState>(
+          listener: (BuildContext context, LocationState state) {
+            if (state is UserLocation) {
+              setState(() {
+                userLocation = state.location;
+                print(
+                    'Test 0 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
+                // prints LocationBlocListener state.location is 0,0 ???
 
-                    BlocProvider.of<GeoBloc>(context)
-                        .add(GetCityDb(userLocation));
+                //Test 1 : Assign state value to variable and use it to send events
+                print('Test 1');
+                print(
+                    'Test 1 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
+                // GetCityUser gets called with state.location is 0,0 and fails..
+                BlocProvider.of<GeoBloc>(context)
+                    .add(GetCityUser(userLocation));
 
-                    // Test 2 : using state value directly
-                    print('Test 2');
-                    print(
-                        'Test 2 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
-                    // GetCityUser gets called with state.location is 0,0 and fails..
-                    BlocProvider.of<GeoBloc>(context)
-                        .add(GetCityUser(state.location));
+                BlocProvider.of<GeoBloc>(context).add(GetCityDb(userLocation));
 
-                    // GetCityDb gets called with correct state.location
-                    BlocProvider.of<GeoBloc>(context)
-                        .add(GetCityDb(state.location));
+                // Test 2 : using state value directly
+                print('Test 2');
+                print(
+                    'Test 2 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
+                // GetCityUser gets called with state.location is 0,0 and fails..
+                BlocProvider.of<GeoBloc>(context)
+                    .add(GetCityUser(state.location));
 
-                    // Test 3 : Adding a Timer makes both events to be called with correct  coordinates.
-                    print('Test 3');
-                    print(
-                        'Test 2 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
-                    Timer(Duration(milliseconds: 50), () {
-                      print(
-                          'LocationBlocListener sent GetCityUser and GetCityDb events with Timer..');
-                      BlocProvider.of<GeoBloc>(context)
-                          .add(GetCityUser(userLocation));
-                      BlocProvider.of<GeoBloc>(context)
-                          .add(GetCityDb(userLocation));
-                    });
-                  });
-                }
-              },
-            ),
-            BlocListener<GeoBloc, GeoState>(
-                listener: (BuildContext context, GeoState state) {
-              if (state is CityUser) {
-                print('CityUser state');
-                setState(() {
-                  cityUser = (state).city;
-                  regionUser = (state).region;
-                  countryUser = (state).country;
+                // GetCityDb gets called with correct state.location
+                BlocProvider.of<GeoBloc>(context)
+                    .add(GetCityDb(state.location));
+
+                // Test 3 : Adding a Timer makes both events to be called with correct  coordinates.
+                print('Test 3');
+                print(
+                    'Test 2 LocationBlocListener state.location is ${state.location.latitude},${state.location.longitude}');
+                Timer(Duration(milliseconds: 50), () {
+                  print(
+                      'LocationBlocListener sent GetCityUser and GetCityDb events with Timer..');
+                  BlocProvider.of<GeoBloc>(context)
+                      .add(GetCityUser(userLocation));
+                  BlocProvider.of<GeoBloc>(context)
+                      .add(GetCityDb(userLocation));
                 });
-              }
-
-              if (state is CityDb) {
-                print('CityDb state');
-                setState(() {
-                  cityDb = (state).city;
-                  regionDb = (state).region;
-                  countryDb = (state).country;
-                });
-              }
-            }),
-          ],
-          child: Scaffold(
+              });
+            }
+          },
+          builder: (context, state) => Scaffold(
             body: Container(
               color: Colors.black54,
               child: Padding(
